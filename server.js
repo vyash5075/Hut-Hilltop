@@ -9,6 +9,7 @@ const PORT = process.env.PORT | 4000;
 const session = require("express-session");
 const flash = require("express-flash");
 const MongoDbStore = require("connect-mongo")(session);
+const passport = require("passport");
 //database connection
 mongoose.connect(
   "mongodb+srv://admin:admin@cluster0.7blaf.mongodb.net/hulhilltop?retryWrites=true&w=majority",
@@ -25,6 +26,8 @@ mongoose.connection.on("connected", () => {
 mongoose.connection.on("error", () => {
   console.group("Mongoose connection failed");
 });
+
+//passport config
 
 const connection = mongoose.connection;
 //session store
@@ -43,15 +46,21 @@ app.use(
     cookie: { maxAge: 1000 * 60 * 60 * 24 }, //24 hours
   })
 );
+const passportInit = require("./app/config/passport");
+passportInit(passport);
+app.use(passport.initialize());
+app.use(passport.session()); //passport sesiion ki help se chlta hai
 
 app.use(flash());
 //Assets
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json()); //json data receive krne ke liye
 
 //Global middleware
 app.use((req, res, next) => {
   res.locals.session = req.session;
+  res.locals.user = req.user;
   next();
 });
 //set template engine

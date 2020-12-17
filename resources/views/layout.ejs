@@ -18,15 +18,26 @@
   </head>
   <body>
     <nav class="container mx-auto flex items-center justify-between py-4">
-      <div>
+      <div class="flex items-center px-1">
+        <h1 class=" px-1 font-bold text-2xl">Hut Hilltop</h1>
         <img src="/img/logo.png" alt="logo" />
       </div>
       <div>
         <ul class="flex items-center">
           <li class="ml-6"><a href="/">Menu</a></li>
           <li class="ml-6"><a href="#">Offers</a></li>
+          <% if(user){%>
+          <li class="ml-6">
+            <form id="logout" action="/logout" method="POST">
+              <a onclick="document.getElementById('logout').submit()" href="#"
+                >Logout</a
+              >
+            </form>
+          </li>
+          <%} else{%>
           <li class="ml-6"><a href="/register">Register</a></li>
           <li class="ml-6"><a href="/login">Login</a></li>
+          <%} %>
           <li class="ml-6">
             <a
               href="/cart"
