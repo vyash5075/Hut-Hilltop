@@ -4,12 +4,18 @@ function homeController() {
   // factor functions el simply object creational pattern hai
 
   return {
-    index: function(req, res) {
+    index(req, res) {
       Menu.find()
         .then((pizzas) => {
+          console.log(pizzas);
           return res.render("home", { pizzas: pizzas });
         })
         .catch((err) => console.log(err));
+
+      //another way by async await
+      //   const pizzas = await Menu.find();
+      //   console.log(pizzas);
+      //   return res.render("home", { pizzas: pizzas });
     },
   };
 }
