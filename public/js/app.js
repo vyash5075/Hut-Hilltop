@@ -5263,7 +5263,7 @@ var cartCounter = document.querySelector("#cartCounter");
 
 function updateCart(pizza) {
   //axiox used for api integration
-  axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/update-carst", pizza).then(function (res) {
+  axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/update-cart", pizza).then(function (res) {
     console.log(res);
     cartCounter.innerText = res.data.totalQty;
     new noty__WEBPACK_IMPORTED_MODULE_1___default.a({
@@ -5289,6 +5289,13 @@ addToCart.forEach(function (btn) {
     updateCart(pizza);
   });
 });
+var alertMsg = document.querySelector("#success-alert");
+
+if (alertMsg) {
+  setTimeout(function () {
+    alertMsg.remove();
+  }, 2000);
+}
 
 /***/ }),
 
