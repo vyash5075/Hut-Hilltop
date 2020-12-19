@@ -3,6 +3,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const app = express();
 const ejs = require("ejs");
+const Emitter = require("events");
 const expressLayout = require("express-ejs-layouts");
 const path = require("path");
 const PORT = process.env.PORT | 4000;
@@ -35,6 +36,10 @@ let mongostore = new MongoDbStore({
   mongooseConnection: connection,
   collection: "sessions",
 });
+
+//eventEmitter
+const eventEmitter = new Emitter(); //jese hi event emit hogi use listen bhi krna hoga
+app.set("eventEmitter", eventEmitter); //eventemitter ko bind krdiya app ke sath
 
 //session configuration
 app.use(
@@ -76,4 +81,23 @@ const server = app.listen(PORT, () => {
 
 //socket
 
-const io = require("soket.io")(server); // server pass krdiya ki hamne konsa server use krna hai socket ke liye
+const io = require("socket.io")(server); // server pass krdiya ki hamne konsa server use krna hai socket ke liye
+io.on("connection", (socket) => {
+  //jese hi connection ho jayega  client ke sath toh hme use ek private room ke andr join krwana hai via passing callback
+  //create and join in private room
+  //jo order ki id hai wahi room ka naam denge
+  console.log(socket.id); //har ek socket ki apni unique id hoti hai
+  socket.on("join", (orderId) => {
+    //receive kr rhe h client se data
+    socket.join(orderId); //jo order id hamne receive ki h join method ki help  us name ki room create ho jayegi aur hum uske andr join ho jayenge
+  });
+});
+
+eventEmitter.on("orderUpdated", (data) => {
+  io.to(`order_${data._id}`).emit("orderUpdated", data); //ab hume ye msg emit krna h private room ke andar
+});
+//ab hume emit kiya orderupdated aur ab hum ise client pr listen krenge  aur sath me updated data bhej denge
+
+eventEmitter.on("orderPlaced", (data) => {
+  io.to("adminRoom").emit("orderPlaced", data);
+});

@@ -43,8 +43,6 @@ if (alertMsg) {
   }, 2000);
 }
 
-initAdmin();
-
 // Change order status
 let statuses = document.querySelectorAll(".status_line");
 let hiddenInput = document.querySelector("#hiddenInput");
@@ -75,3 +73,32 @@ function updateStatus(order) {
 }
 
 updateStatus(order);
+
+//socket
+let socket = io();
+initAdmin(socket);
+
+//Join      jese hi order page pr aa gye hame msg bhejna h server ko ki ye lo order id aur iske naam se ek room bna do aur join krdo
+if (order) {
+  socket.emit("join", `order_${order._id}`); //join is the name of event you can give any name
+  //order_493nkjvnkjfnvkfn         //har ek order ki unique room
+}
+
+//for admin
+let adminAreaPath = window.location.pathname;
+if (adminAreaPath.includes("admin")) {
+  socket.emit("join", "adminRoom");
+}
+
+socket.on("orderUpdated", () => {
+  const updatedOrder = { ...order };
+  updatedOrder.updatedAt = moment().format();
+  updatedOrder.status = data.status;
+  updateStatus(updatedOrder);
+  new Noty({
+    type: "success",
+    timeout: 1000,
+    progressBar: false,
+    text: "Order status updated",
+  }).show();
+});

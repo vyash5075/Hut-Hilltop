@@ -20,16 +20,18 @@
     <title>Hut hilltop</title>
   </head>
   <body>
+    <script src="/socket.io/socket.io.js"></script>
     <nav class="container mx-auto flex items-center justify-between py-4">
       <div class="flex items-center px-1">
-        <h1 class=" px-1 font-bold text-2xl">Hut Hilltop's</h1>
+        <h1 class=" px-1 font-bold text-2xl">Hilltop's</h1>
         <a href="/"> <img src="/img/logo.png" alt="logo"/></a>
       </div>
       <div>
         <ul class="flex items-center">
           <li class="ml-6"><a href="/">Menu</a></li>
-          <li class="ml-6"><a href="/customer/orders">my Orders</a></li>
+
           <% if(user){%>
+          <li class="ml-6"><a href="/customer/orders">my Orders</a></li>
           <li class="ml-6">
             <form id="logout" action="/logout" method="POST">
               <a onclick="document.getElementById('logout').submit()" href="#"
@@ -57,6 +59,7 @@
       </div>
     </nav>
     <%- body %>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="/js/app.js"></script>
   </body>
 </html>
