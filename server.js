@@ -70,6 +70,10 @@ app.set("view engine", "ejs");
 
 require("./routes/web")(app);
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });
+
+//socket
+
+const io = require("soket.io")(server); // server pass krdiya ki hamne konsa server use krna hai socket ke liye

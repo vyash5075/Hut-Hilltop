@@ -37,6 +37,16 @@ function orderController() {
       res.header("Cache-Control", "no-store");
       res.render("customers/orders", { orders: orders, moment: moment });
     },
+    async show(req, res) {
+      console.log(req.params.id);
+      const order = await Order.findById({ _id: req.params.id });
+      //authorize user
+      if (req.user._id.toString() === order.customerId.toString()) {
+        return res.render("customers/singleorder", { order: order });
+      } else {
+        return res.redirect("/");
+      }
+    },
   };
 }
 module.exports = orderController;

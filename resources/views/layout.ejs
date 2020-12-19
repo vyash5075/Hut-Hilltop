@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-
+    <link
+      rel="stylesheet"
+      href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
+    />
     <link
       href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
       rel="stylesheet"
@@ -25,7 +28,7 @@
       <div>
         <ul class="flex items-center">
           <li class="ml-6"><a href="/">Menu</a></li>
-          <li class="ml-6"><a href="#">Offers</a></li>
+          <li class="ml-6"><a href="/customer/orders">my Orders</a></li>
           <% if(user){%>
           <li class="ml-6">
             <form id="logout" action="/logout" method="POST">
