@@ -76,7 +76,6 @@ updateStatus(order);
 
 //socket
 let socket = io();
-initAdmin(socket);
 
 //Join      jese hi order page pr aa gye hame msg bhejna h server ko ki ye lo order id aur iske naam se ek room bna do aur join krdo
 if (order) {
@@ -87,6 +86,7 @@ if (order) {
 //for admin
 let adminAreaPath = window.location.pathname;
 if (adminAreaPath.includes("admin")) {
+  initAdmin(socket);
   socket.emit("join", "adminRoom");
 }
 
