@@ -32,6 +32,9 @@
               <a onclick="document.getElementById('logout').submit()" href="#"
                 >Logout</a
               >
+              <%if(user.role==='admin'){%>
+              <a class="ml-6" href="/admin/orders">admin</a>
+              <%}%>
             </form>
           </li>
           <%} else{%>

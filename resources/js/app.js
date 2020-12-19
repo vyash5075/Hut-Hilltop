@@ -2,6 +2,7 @@ import axios from "axios";
 import Noty from "noty";
 let addToCart = document.querySelectorAll(".add-to-cart");
 let cartCounter = document.querySelector("#cartCounter");
+import { initAdmin } from "./admin";
 
 function updateCart(pizza) {
   //axiox used for api integration
@@ -40,3 +41,5 @@ if (alertMsg) {
     alertMsg.remove();
   }, 2000);
 }
+
+initAdmin();
