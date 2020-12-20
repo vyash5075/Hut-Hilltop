@@ -97598,8 +97598,7 @@ function updateStatus(order) {
 
 updateStatus(order); //socket
 
-var socket = io();
-Object(_admin__WEBPACK_IMPORTED_MODULE_2__["initAdmin"])(socket); //Join      jese hi order page pr aa gye hame msg bhejna h server ko ki ye lo order id aur iske naam se ek room bna do aur join krdo
+var socket = io(); //Join      jese hi order page pr aa gye hame msg bhejna h server ko ki ye lo order id aur iske naam se ek room bna do aur join krdo
 
 if (order) {
   socket.emit("join", "order_".concat(order._id)); //join is the name of event you can give any name
@@ -97610,6 +97609,7 @@ if (order) {
 var adminAreaPath = window.location.pathname;
 
 if (adminAreaPath.includes("admin")) {
+  Object(_admin__WEBPACK_IMPORTED_MODULE_2__["initAdmin"])(socket);
   socket.emit("join", "adminRoom");
 }
 
