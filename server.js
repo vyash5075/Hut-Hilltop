@@ -6,7 +6,7 @@ const ejs = require("ejs");
 const Emitter = require("events");
 const expressLayout = require("express-ejs-layouts");
 const path = require("path");
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4001;
 const session = require("express-session");
 const flash = require("express-flash");
 const MongoDbStore = require("connect-mongo")(session);
@@ -74,6 +74,10 @@ app.set("views", path.join(__dirname, "/resources/views"));
 app.set("view engine", "ejs");
 
 require("./routes/web")(app);
+
+app.use((req, res) => {
+  res.status(404).render("errors/404");
+});
 
 const server = app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);

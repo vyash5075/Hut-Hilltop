@@ -24,6 +24,10 @@ const orderSchema = new Schema(
       type: String,
       default: "cod",
     },
+    paymentStatus: {
+      type: Boolean,
+      default: false,
+    },
     status: {
       type: String,
       default: "order_placed",

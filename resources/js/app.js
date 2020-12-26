@@ -1,5 +1,6 @@
 import axios from "axios";
 import Noty from "noty";
+import { initStripe } from "./stripe";
 let addToCart = document.querySelectorAll(".add-to-cart");
 let cartCounter = document.querySelector("#cartCounter");
 import { initAdmin } from "./admin";
@@ -74,6 +75,7 @@ function updateStatus(order) {
 
 updateStatus(order);
 
+initStripe();
 //socket
 let socket = io();
 
