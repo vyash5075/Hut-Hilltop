@@ -64,7 +64,6 @@ function orderController() {
             //Emit event
             // const eventEmitter = req.app.get("eventEmitter");
             // eventEmitter.emit("orderPlaced", placedOrder);
-
             // res.redirect("/customer/orders");
           });
         })
@@ -72,9 +71,6 @@ function orderController() {
           return res.status(500).json({
             message: "something went wrong",
           });
-          // console.log(err);
-          // req.flash("error", "Something went wrong!!");
-          // res.redirect("/cart");
         });
     },
     async index(req, res) {
